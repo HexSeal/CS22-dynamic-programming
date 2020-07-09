@@ -25,11 +25,20 @@ def lcs_dp(strA, strB):
     cols = len(strB) + 1
 
     dp_table = [[0 for j in range(cols)] for i in range(rows)]
+    
 
     for row in range(rows):
         for col in range(cols):
-            dp_table[row][col] == float('inf')
+            if len(strA) == 0 or len(strB) == 0:
+                dp_table[row][col] = 0
+                
+            elif strA[row-1] == strB[col-1]:
+                dp_table[row][col] = dp_table[row-1][col-1] + 1
+            
+            else:
+                dp_table[row][col] = max(dp_table[row-1][col], dp_table[row][col-1])
 
+    print(dp_table)
     return dp_table[rows-1][cols-1]
 
 def knapsack(items, capacity):
